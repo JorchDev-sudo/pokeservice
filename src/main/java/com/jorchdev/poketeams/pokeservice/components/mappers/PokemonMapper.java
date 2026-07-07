@@ -1,7 +1,7 @@
 package com.jorchdev.poketeams.pokeservice.components.mappers;
 
-import com.jorchdev.poketeams.pokeservice.dtos.PokemonApi.PokemonApiResponseDto;
-import com.jorchdev.poketeams.pokeservice.dtos.PokemonResponseDto;
+import com.jorchdev.poketeams.pokeservice.dtos.PokemonApi.PokemonApiResponse;
+import com.jorchdev.poketeams.pokeservice.dtos.PokemonResponse;
 import com.jorchdev.poketeams.pokeservice.entities.Pokemon;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Component
 public class PokemonMapper {
-    public Pokemon toEntity (PokemonApiResponseDto dto){
+    public Pokemon toEntity (PokemonApiResponse dto){
         Pokemon pokemon = new Pokemon();
 
         pokemon.setId(dto.id);
@@ -30,8 +30,8 @@ public class PokemonMapper {
         return pokemon;
     }
 
-    public PokemonResponseDto toResponseDto (Pokemon pokemon){
-        PokemonResponseDto response = new PokemonResponseDto();
+    public PokemonResponse toResponseDto (Pokemon pokemon){
+        PokemonResponse response = new PokemonResponse();
 
         response.id = pokemon.getId();
         response.name = pokemon.getName();

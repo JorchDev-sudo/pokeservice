@@ -1,18 +1,23 @@
 package com.jorchdev.poketeams.pokeservice.services;
 
+import com.jorchdev.poketeams.pokeservice.components.PokemonApiRestClient;
 import com.jorchdev.poketeams.pokeservice.components.PokemonApiWebClient;
 import com.jorchdev.poketeams.pokeservice.components.mappers.PokemonMapper;
-import com.jorchdev.poketeams.pokeservice.dtos.PokemonResponseDto;
+import com.jorchdev.poketeams.pokeservice.dtos.PokemonApi.basic.PokemonBasic;
+import com.jorchdev.poketeams.pokeservice.dtos.PokemonResponse;
 import com.jorchdev.poketeams.pokeservice.entities.Pokemon;
 import com.jorchdev.poketeams.pokeservice.repositories.PokemonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PokemonService {
     private final PokemonRepository repository;
     private final PokemonApiWebClient apiWebClient;
+    private final PokemonApiRestClient apiRestClient;
     private final PokemonMapper mapper;
 
     private final Logger logger = LoggerFactory.getLogger(PokemonService.class);
@@ -20,14 +25,16 @@ public class PokemonService {
     public PokemonService
             (PokemonRepository repository,
              PokemonApiWebClient apiWebClient,
+             PokemonApiRestClient apiRestClient,
              PokemonMapper pokemonMapper)
     {
         this.repository = repository;
         this.apiWebClient = apiWebClient;
+        this.apiRestClient = apiRestClient;
         this.mapper = pokemonMapper;
     }
 
-    public PokemonResponseDto getPokemonById(int id){
+    public PokemonResponse getPokemonById(int id){
         return mapper.toResponseDto(
                 repository.findById(id)
                         .orElseGet(() -> {
@@ -40,7 +47,7 @@ public class PokemonService {
         );
     }
 
-    public PokemonResponseDto getPokemonByName(String name){
+    public PokemonResponse getPokemonByName(String name){
         return mapper.toResponseDto(
                 repository.findByName(name)
                         .orElseGet(() -> {
@@ -51,6 +58,10 @@ public class PokemonService {
                             return saved;
                         })
         );
+    }
+
+    public List<PokemonBasic> searchPokemon(String search) {
+        return apiRestClient.search(search);
     }
 }
 
