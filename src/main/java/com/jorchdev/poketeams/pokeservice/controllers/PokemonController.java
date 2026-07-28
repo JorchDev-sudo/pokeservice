@@ -1,6 +1,7 @@
 package com.jorchdev.poketeams.pokeservice.controllers;
 
 import com.jorchdev.poketeams.pokeservice.dtos.PokemonApi.basic.PokemonBasic;
+import com.jorchdev.poketeams.pokeservice.dtos.PokemonApi.basic.PokemonBasicResponse;
 import com.jorchdev.poketeams.pokeservice.dtos.PokemonResponse;
 import com.jorchdev.poketeams.pokeservice.services.PokemonService;
 import org.slf4j.Logger;
@@ -43,7 +44,7 @@ public class PokemonController {
     }
 
     @GetMapping("/search/contains")
-    public ResponseEntity<List<PokemonBasic>> searchPokemon(@RequestParam String name) {
+    public ResponseEntity<List<PokemonBasicResponse>> searchPokemon(@RequestParam String name) {
         try{
             return ResponseEntity.ok(pokemonService.searchPokemon(name));
         }catch(Exception e) {

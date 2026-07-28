@@ -34,7 +34,7 @@ public class PokemonApiRestClient {
 
     public List<PokemonBasic> search(String query) {
         return pokemonCache.stream()
-                .filter(p -> p.name().contains(query.toLowerCase()))
+                .filter(p -> p.name().toLowerCase().contains(query))
                 .toList();
     }
 }

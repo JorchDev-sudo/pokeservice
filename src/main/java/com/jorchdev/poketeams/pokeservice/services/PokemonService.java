@@ -4,13 +4,16 @@ import com.jorchdev.poketeams.pokeservice.components.PokemonApiRestClient;
 import com.jorchdev.poketeams.pokeservice.components.PokemonApiWebClient;
 import com.jorchdev.poketeams.pokeservice.components.mappers.PokemonMapper;
 import com.jorchdev.poketeams.pokeservice.dtos.PokemonApi.basic.PokemonBasic;
+import com.jorchdev.poketeams.pokeservice.dtos.PokemonApi.basic.PokemonBasicResponse;
 import com.jorchdev.poketeams.pokeservice.dtos.PokemonResponse;
 import com.jorchdev.poketeams.pokeservice.entities.Pokemon;
 import com.jorchdev.poketeams.pokeservice.repositories.PokemonRepository;
+import com.jorchdev.poketeams.pokeservice.utils.BasicPokemonIdUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -60,8 +63,15 @@ public class PokemonService {
         );
     }
 
-    public List<PokemonBasic> searchPokemon(String search) {
-        return apiRestClient.search(search);
+    public List<PokemonBasicResponse> searchPokemon(String search) {
+        List<PokemonBasic> pokemonBasics = apiRestClient.search(search);
+        List<PokemonBasicResponse> response = new ArrayList<>();
+
+        for (PokemonBasic pokemon : pokemonBasics) {
+            response.add(new PokemonBasicResponse(pokemon.name(), pokemon.url(), BasicPokemonIdUtility.extractIdFromUrl(pokemon.url())));
+        }
+
+        return response;
     }
 }
 

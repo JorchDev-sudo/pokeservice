@@ -1,6 +1,6 @@
 package com.jorchdev.poketeams.pokeservice.dtos.PokemonApi.basic;
 
-public record PokemonBasic (
+public record PokemonBasicResponse(
         String name,
-        String url) { }
-
+        String url,
+        int pokemonId) { }
