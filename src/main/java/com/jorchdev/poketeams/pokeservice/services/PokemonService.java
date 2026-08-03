@@ -64,7 +64,7 @@ public class PokemonService {
     }
 
     public List<PokemonBasicResponse> searchPokemon(String search) {
-        List<PokemonBasic> pokemonBasics = apiRestClient.search(search);
+        List<PokemonBasic> pokemonBasics = apiRestClient.search(search.toLowerCase());
         List<PokemonBasicResponse> response = new ArrayList<>();
 
         for (PokemonBasic pokemon : pokemonBasics) {
