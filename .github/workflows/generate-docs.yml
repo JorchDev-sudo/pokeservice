@@ -72,6 +72,12 @@ jobs:
       - name: Generar el markdown con Gemini CLI
         id: gemini
         uses: google-github-actions/run-gemini-cli@v0.1.22
+        env:
+          # El runner de Actions siempre es un checkout nuevo, así que
+          # Gemini CLI nunca lo considera "trusted" por defecto desde que
+          # se introdujo la feature de trusted folders. Sin esto, falla con
+          # "Gemini CLI is not running in a trusted directory".
+          GEMINI_CLI_TRUST_WORKSPACE: "true"
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
           # Sin herramientas: Gemini solo transforma texto, no toca el repo.
