@@ -21,7 +21,7 @@ public class SecurityConfig {
 
         //TODO Cambiar la url del cors a un archivo environment
         config.setAllowedOrigins(
-                List.of("http://localhost:5173")
+                List.of("http://localhost:5173", "http://192.168.1.34:5173")
         );
 
         config.setAllowedMethods(
