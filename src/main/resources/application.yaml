@@ -21,6 +21,7 @@ spring:
       enabled: true
 
 server:
+  address: 0.0.0.0
   port: 8081
 
 logging:
@@ -29,3 +30,6 @@ logging:
 
 pokemon.api:
   base-url: ${POKE_API_URL:https://pokeapi.co/api/v2}
+
+internal-jwt:
+  public-key: ${PUBLIC_KEY}
